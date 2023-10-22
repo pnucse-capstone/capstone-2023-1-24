@@ -1,0 +1,22 @@
+{
+  "name": "electron-app",
+  "version": "1.0.0",
+  "description": "Hello world",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "npm run build:win32 && npm run build:win64",
+    "build:win32": "electron-builder --win portable --ia32",
+    "build:win64": "electron-builder --win portable --x64"
+  },
+  "author": "JaeDoo",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^26.1.0"
+  },
+  "build": {
+    "win": {
+      "icon": "C:/Users/foson/Documents/project/c9/electron-app/assets/c9Pay.png"
+    }
+  }
+}
