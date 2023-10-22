@@ -1,0 +1,45 @@
+.form-signin {
+    border: gainsboro solid 0.5px;
+    width: 100%;
+    max-width: 30rem;
+    padding: 2rem 3rem;
+    border-radius: 1rem 1rem 1rem 1rem;
+}
+
+label {
+    font-size: 1.1rem;
+    color: gray;
+}
+
+input {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    height: 4rem;
+}
+
+.line {
+    display:flex;
+    flex-basis:100%;
+    align-items:center;
+    color:rgba(0,0,0,0.35);
+    font-size:14px;
+    margin:8px 0px;
+}
+.line::before{
+    content:"";
+    flex-grow:1;
+    margin:0px 16px;
+    background:rgba(0,0,0,0.35);
+    height:1px;
+    font-size:0px;
+    line-height: 0px;
+}
+.line::after {
+    content:"";
+    flex-grow:1;
+    margin:0px 16px;
+    background:rgba(0,0,0,0.35);
+    height:1px;
+    font-size:0px;
+    line-height: 0px;
+}

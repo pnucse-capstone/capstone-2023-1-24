@@ -1,0 +1,80 @@
+server.port: 8081
+
+spring:
+  application:
+    name: auth-service
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: info
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3, w3c
+      produce: b3, w3c
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+
+token:
+  time: ENC(F5Kz/bjqJE0StNcBtIckgA==)
+
+auth:
+  private-key: ENC(b4BCMTA9IdglR0aO8lDGxNrZJx5tExg4wmVY7e6vGtRAy0ewACR+Wfnbb6ogE0SJvsvsjGGRlGVX8peTSK8bWXWrHtI53gcmhoiafm1f2RInkyrPhJ4hXNJOrLnYCrXByuIJTNlzGT4RBbCjIdqniZ8D3uz3o+156ZNQ37hlxZY2YY6yPVm0FjJW5HB9uxf9Fa+j7vA7MXvC19xXFq7omZH0+os86a7nTwlEIjB4SzdSZdFzVm61jUUsdKbTb5Fiazcz3GJARhA+MT82REv9Tmk1c0DUbE4gGYYPrN0YznM5SsvUlCRH7339UznIbf60E6XD0CwssHwftoTX3w4Wg47tt46bKzSsLfwEF4Ufob7amZPvSGQxGITYJEjdPY/d/vcXlplSOV5A6lc39TcaD3DYNxgUZ6Ip5BMEmaQAT9BX/VleNjxLQ5fgBJfcom3/fX8SuNx9J7LRMpFEdX8xjwfiLxecPw02NMPf+1n7b0pMWzR1t7babrBS2MLpNYVdqW09u4Fx7nNonnStq9u2jbTNWISYNc3LJ8TCcsTZ32cgzAiQtnh5L+FLm8XyNaol6FpxOXF0VMTEvH0OB7hnYoND+uWvT++M/GkzoIzrUi8IMqAj9PPIow==)
+  public-key: ENC(zBl4YsJtQm0uDSpHCwoxc/YKs7JTL6b2uobB3KOELZjESTUO5FNBAoL0YVRvB2kCKbHfw3JZvFTHATJtcqUgZkMbL0LScPXfuWwDnuiCz7iNI6SN4BDiTIirHAfvIfN+hLOX/4WuSO54R3CQx5t2GY0SuN//Lq8dx71iBgVJUAHQ4kUInQyIRBnYCJZCjHrP)
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      dialect: ENC(v3qfZ5piTBS7ZsTqma6MZYLnflHikRJtVzhKWljENeNziGzC+U3edPEvQAzVfsfpx+Nc7nIfyjw=)
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource:
+    url: ENC(oVnUh5o7+vgljFTJU6aEY/WLOSkFNVMJzrLfh36Iqq7u0vDrUFWF2Mo4RlgbwcJWlBNhcCcC42cX8l61+3HsgQLUlz9omaG8t1tQl7+wZ3eX/D4BcvNGdfeJTwkiN6zw)
+    username: ENC(7ET9MdJPZoPpUNGcn9Y9cPgl+10tPAHg)
+    password: ENC(ZHYTATtVoq6Uqk39mE2PUaRtCY1eTTj4)
+

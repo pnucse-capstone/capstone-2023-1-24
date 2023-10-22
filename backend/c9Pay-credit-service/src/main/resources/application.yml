@@ -1,0 +1,58 @@
+server:
+  port: 8082
+  shutdown: graceful
+spring:
+  application:
+    name: credit-service
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    hikari.maximum-pool-size: 3
+    url: ENC(pTFr/D/Yzqma3D2U/vB/CHc7w5IR+MbWXRaJJNVb6SQTri0NfZiM2ioeJZiGu2/NHLz73ugbwJiUlCRvettRYSpikk4KYwyG5lzEzHI2sTl6JUOLBGJQG81Z3D5lhC+H)
+    username: ENC(JF2MRokfwc08hLZkjdFUWNpqhJoIW7lE)
+    password: ENC(OQ/jUp0Py3slj9EtkVYogZ345rww/YNx)
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+
+logging:
+  level:
+    com.c9Pay.creditservice: debug
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3, w3c
+      produce: b3, w3c
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${hostname}
+openapi:
+  service:
+    title: credit-service docs
+    version: 1.0.0
+    url: http://localhost:8000
+springdoc:
+  api-docs:
+    path: /api/v3/api-docs
+  swagger-ui:
+    path: /credit-service/api/docs

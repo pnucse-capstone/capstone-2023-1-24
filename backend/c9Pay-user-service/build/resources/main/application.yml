@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: user-service
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: ENC(QlYAYNFz1Wqe++xMrypTlnwsZoCsj2u5YDqnSXA+Q43cjgoLBndeLiYqe8jQ3avIyOd0adEhN7Xs/zdLdVwKj3HRDcerK1BlZGx/6An3JEZGy51syStj66jYwTFRGSxf)
+    username: ENC(P0YpE5s27eFW0hFCz2OxjGndSH6aje0r)
+    password: ENC(P0YpE5s27eFW0hFCz2OxjGndSH6aje0r)
+  jpa:
+    hibernate:
+      ddlAuto: validate
+    defer-datasource-initialization: true
+
+server:
+  port: 8083
+  shutdown: graceful
+
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+jwt:
+  time: 1800000
+  service-type: ENC(9vruXpL+mRox/n5yyNkQmg==)
+  secret: ENC(50PmC8wTPcUAcv8fh1XLM+eMhqMQsOuNhOJG3X8wgJ4HP62Q8h8+FlIlvUV81cifTkH+ym7RkB3lzOJJ4MX5WJ0QjvN1y2B/AKyQGNZvFD9/zp2G29osZKQX/ZtkR4OzjSMTpOaofZEJnG1L3+Ha5Q==)
+logging:
+  level:
+    com.c9Pay.userservice: debug
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3, w3c
+      produce: b3, w3c
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,beans,httpexchanges
+
+
+resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        limitForPeriod: 3
+        limitRefreshPeriod: 1s
+        timeoutDuration: 2s
+symmetric:
+  key: ENC(esHO3I5yH+LVAHe3slss0iGcrnOKArvh)
+
+openapi:
+  service:
+    title: user-service docs
+    version: 1.0.0
+    url: http://localhost:8000
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /user-service/api/docs

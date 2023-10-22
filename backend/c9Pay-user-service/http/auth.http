@@ -1,0 +1,13 @@
+### 인증 응답
+POST {{user-api}}/auth
+Content-Type: application/json
+
+{
+  "constructor": "aa",
+  "recognizer": "bb"
+}
+
+
+
+### qr 생성 요청
+GET  {{user-api}}/api/qr

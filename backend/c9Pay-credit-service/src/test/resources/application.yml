@@ -1,0 +1,9 @@
+jasypt:
+  encryptor:
+    password: aa
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:credit-service
+    username: sa
+    password:

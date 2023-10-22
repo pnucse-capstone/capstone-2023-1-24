@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/c9Pay.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-5" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/c9Pay.png" width="100" height="50" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="userinfo.html">User Service</a></li>
+                        <li class="nav-item"><a class="nav-link" href="storeinfo.html">Store Service</a></li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><button type="button" class="btn btn-outline-primary mx-1" id='login' onclick="location.href='login.html'">로그인</button></li>
+                        <li class="nav-item"><button type="button" class="btn btn-primary mx-1" id='signup' onclick="location.href='signup.html'">가입하기</button></li>
+                        <li class="nav-item"><button type="button" class="btn btn-primary mx-1 hidden" id="logout" onclick="logout()">로그아웃</button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-image text-white mt-5" style="background-image: url('assets/banner1.jpg'); background-position: center center; background-size: 100%;">
+            <div class="container p-5 text-center my-5">
+                <h1 class="fw-bolder">Welcome to C9Pay</h1>
+                <p class="lead">자유롭게 판매하고 손쉽게 결제하세요. C9Pay는 간단하고 안전한 지불방법을 제공합니다.</p>
+                <a class="btn btn-lg btn-outline-light" id='innerSignup' href="signup.html">무료로 가입하기</a>
+            </div>
+        </header>
+        <!-- About section-->
+        <section id="about" class="bg-light">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>쉽고 간편한 C9Pay</h2>
+                        <p class="lead">걱정없이 쇼핑하세요. 세상은 넓고 온라인 쇼핑은 우릴 행복하게 하니까요.</p>
+                        <ul>
+                            <li>Clickable nav links that smooth scroll to page sections</li>
+                            <li>Responsive behavior when clicking nav links perfect for a one page website</li>
+                            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
+                            <li>Minimal custom CSS so you are free to explore your own unique design options</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services section-->
+        <section class="bg-image text-white" style="background-image: url('assets/qrimage1.jpg'); background-position: center center; background-size: 100%;" id="services">
+            <div class="container p-4 my-3">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Services we offer</h2>
+                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact section-->
+        <div id="contact">
+            <div class="container px-3 h-auto">
+                <div class="row gx-4 justify-content-center h-100">
+                    <div class="col-lg-5 bg-image" style="background-image: url('assets/kiosk.jpg'); background-position: center 20%; background-size: 100%;">
+
+                    </div>
+                    <div class="col-lg-7 my-lg-4" style="padding: 5rem 5rem;">
+                        <h2>Contact us</h2>
+                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; 2023 전기 졸업과제 팀 클라우드나인</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+    <script>
+        function setButton() {
+            const baseUrl = "http://api.teamcloudnine.link/user-service/api/user";
+            fetch(baseUrl, {
+                method: "GET",
+                credentials: "include",
+            }).then((response)=>hasToken(response.status));
+        }
+
+        function logout() {
+            document.cookie = "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.teamcloudnine.link;";
+            location.reload();
+        }
+
+        function hasToken(stat) {
+            let loginButton = document.getElementById('login');
+            let signupButton = document.getElementById('signup');
+            let logoutButton = document.getElementById('logout');
+            let innerSignupButton = document.getElementById('innerSignup');
+
+
+            if (stat == 200) {
+                loginButton.classList.add('hidden');
+                signupButton.classList.add('hidden');
+                innerSignupButton.classList.add('hidden');
+                logoutButton.classList.remove('hidden');
+            } else {
+                loginButton.classList.remove('hidden');
+                signupButton.classList.remove('hidden');
+                innerSignupButton.classList.remove('hidden');
+                logoutButton.classList.add('hidden');
+            }
+        }
+
+        window.addEventListener("load", setButton, false);
+    </script>
+</html>

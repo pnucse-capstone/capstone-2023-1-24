@@ -1,0 +1,98 @@
+server:
+  port: 8000
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/api/**
+          filters:
+            - AddRequestHeader=api,${gateway.key}
+            - name: LoggingFilter
+              args:
+                serviceName: USER-SERVICE
+          metadata:
+            response-timeout: 3000
+            connect-timeout: 3000
+        - id: store-service
+          uri: lb://STORE-SERVICE
+          predicates:
+            - Path=/store-service/api/**
+          metadata:
+            response-timeout: 3000
+            connect-timeout: 3000
+          filters:
+            - AddRequestHeader=api,${gateway.key}
+            - name: LoggingFilter
+              args:
+                serviceName: STORE-SERVICE
+        - id: credit-service
+          uri: lb://CREDIT-SERVICE
+          predicates:
+            - Path=/credit-service/api/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://web.teamcloudnine.link"
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+
+logging:
+  level:
+    com.com.c9pay.gateway: debug
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: b3, w3c
+      produce: b3, w3c
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+
+gateway:
+  key: ENC(+OtSkogeNy6KmK9+TsQM2Upqvsy1OPxt)
+
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    operations-sorter: alpha
+    path: /api-docs
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: 게이트웨이
+        primaryName: API Gateway
+      - url: /user-service/v3/api-docs
+        name: 사용자 서비스
+        primaryName: User service
+      - url: /credit-service/api/v3/api-docs
+        name: 크레딧 서비스
+        primaryName: Credit service

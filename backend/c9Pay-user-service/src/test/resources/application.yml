@@ -1,0 +1,26 @@
+jwt:
+  time: 750000
+  service-type: test
+  secret: SDKJFLKSDJFKLSADFHADJKLSFHAJDKSGFHADJKFGHJKADFGHJKADSFGHDFJSKGHDSFJKGHSDFJKGDHSFGJKHDSJKSDFHJK==
+
+symmetric:
+  key: test
+jasypt:
+  encryptor:
+    password: test
+spring:
+  datasource:
+    url: jdbc:h2:mem:user-service
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+
+
+openapi:
+  service:
+    title: test
+    version: 1.0.0
+    url: http://localhost:8000

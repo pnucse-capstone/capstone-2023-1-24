@@ -1,0 +1,26 @@
+### 계좌 생성
+POST {{credit-api}}/account/testB
+
+### 계좌 조회
+GET {{credit-api}}/account/testC
+
+### 크레딧 충전
+POST {{credit-api}}/account/test/load
+Content-Type: application/json
+
+{
+  "chargeAmount": 25000,
+  "accountInfo": "testAccount"
+}
+
+### 계좌 삭제
+DELETE {{credit-api}}/account/test
+
+
+### 송금
+POST {{credit-api}}/account/test/transfer/testB
+Content-Type: application/json
+
+{
+  "creditAmount": 30000
+}

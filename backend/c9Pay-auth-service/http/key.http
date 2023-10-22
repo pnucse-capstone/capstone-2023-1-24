@@ -1,0 +1,2 @@
+### 공개키 요청
+GET {{auth-api}}/public-key

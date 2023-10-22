@@ -1,0 +1,37 @@
+
+### 사용자 정보 업데이트
+PUT {{user-api}}/api/user
+Content-Type: application/json
+
+{
+  "username": "vv",
+  "email":"aaa@bbb.ccc",
+  "userId": "vv22",
+  "password": "v2v"
+}
+
+### 회원가입
+POST {{user-api}}/api/user/signup
+Content-Type: application/json
+
+{
+  "userId":"aa",
+  "username": "dummy",
+  "password": "bb",
+  "email": "abd@gmail.com"
+}
+
+
+### 사용자 정보
+GET {{user-api}}/api/user
+
+### 아이디 중복 확인
+GET {{user-api}}/api/user/check-duplicate
+userId: vv2
+
+
+### 사용자 개체 식별번호 조회
+GET {{user-api}}/user/serial-number
+
+### 사용자 삭제
+DELETE {{user-api}}/api/user

@@ -1,0 +1,9 @@
+### 로그인
+
+POST {{user-api}}/api/login
+Content-Type: application/json
+
+{
+  "userId": "aa",
+  "password": "bb"
+}

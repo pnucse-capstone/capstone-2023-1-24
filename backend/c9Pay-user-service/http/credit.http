@@ -1,0 +1,11 @@
+### 크레딧 충전 요청
+POST {{user-api}}/api/credit
+Content-Type: application/json
+
+{
+  "quantity": 10000
+}
+
+
+### 크레딧 조회
+GET {{user-api}}/api/credit
