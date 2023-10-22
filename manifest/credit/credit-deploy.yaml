@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: credit-deployment
+  labels:
+    app: credit
+spec:
+  selector:
+    matchLabels:
+      app: credit
+  template:
+    metadata:
+      labels:
+        app: credit
+    spec:
+      containers:
+      - env:
+        - name: jasypt.encryptor.password
+          valueFrom:
+            configMapKeyRef:
+              key: CREDIT_JASYPT_KEY
+              name: cloudnine-env
+        - name: management.zipkin.tracing.endpoint
+          valueFrom:
+            configMapKeyRef:
+              key: ZIPKIN_URI
+              name: cloudnine-env
+        - name: eureka.client.service-url.defaultZone
+          valueFrom:
+            configMapKeyRef:
+              key: EUREKA_URI
+              name: cloudnine-env
+        - name: JAVA_OPS
+          value: "-XX:+UseContainerSupport"
+        name: credit
+        image: fosong98/creditservice:1.0.4
+        ports:
+        - containerPort: 8082
+
+        resources:
+          requests:
+            cpu: 10m
+            memory: 400Mi
+          limits:
+            memory: 400Mi
+
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8082
+          initialDelaySeconds: 30
+          periodSeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8082
+          initialDelaySeconds: 30
+          periodSeconds: 20

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webpage-deployment
+  labels:
+    app: webpage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webpage
+  template:
+    metadata:
+      labels:
+        app: webpage
+    spec:
+      containers:
+      - name: webpage
+        image: fosong98/webpage:1.0.6
+        ports:
+        - containerPort: 80

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  labels:
+    app: user
+spec:
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - env:
+        - name: jasypt.encryptor.password
+          valueFrom:
+            configMapKeyRef:
+              key: USER_JASYPT_KEY
+              name: cloudnine-env
+        - name: management.zipkin.tracing.endpoint
+          valueFrom:
+            configMapKeyRef:
+              key: ZIPKIN_URI
+              name: cloudnine-env
+        - name: eureka.client.service-url.defaultZone
+          valueFrom:
+            configMapKeyRef:
+              key: EUREKA_URI
+              name: cloudnine-env
+        - name: JAVA_OPS
+          value: "-XX:+UseContainerSupport"
+        name: user
+        image: fosong98/userservice:1.0.4
+        ports:
+        - containerPort: 8083
+
+        resources:
+          requests:
+            cpu: 10m
+            memory: 400Mi
+          limits:
+            memory: 400Mi
+
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8083
+          initialDelaySeconds: 30
+          periodSeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8083
+          initialDelaySeconds: 30
+          periodSeconds: 20
