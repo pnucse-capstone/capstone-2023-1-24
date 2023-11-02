@@ -33,7 +33,5 @@
 - 파드별 CPU 사용량을 기준으로 Autoscaling 적용
 - Prometheus로 클러스터의 리소스를 모니터링하고 Zipkin으로 트랜잭션 흐름 모니터링
 # 4. 소개 및 시연 영상
-
+[![2023년 전기 졸업과제 24 클라우드나인](https://www.youtube.com/watch?v=SdUjcxSy9Gw)]
 # 5. 사용법
-
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/fnZ3vxy8)
